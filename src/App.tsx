@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
+import { Button } from 'antd'
+import { DefaultTimersContainer, GlobalStyle, StyledTimerButton, TimerConteiner } from './styles'
 
-function App() {
+const App = () => {
   const [ timeToFocus, setTimeToFocus ] = useState<number>(1500)
   const [takeAShortBreak, setShortBreak ] = useState<number>(300)
   const [ takeALongBreak, setTakeALongBreack ] = useState<number>(450)
@@ -22,23 +24,32 @@ function App() {
   
 
   return (
-    <div >
-      <button onClick={() => setTimerToFocus(timeToFocus)}>time to focus</button>
-      <button onClick={() => setTimerToFocus(takeAShortBreak)}>take a short break</button>
-      <button onClick={() => setTimerToFocus(takeALongBreak)}>take a long break</button>
+    <>
+      <GlobalStyle/>
+    <TimerConteiner >
+      <DefaultTimersContainer>
 
-      <h1>time: {timer}</h1>
+      <StyledTimerButton onClick={() => setTimerToFocus(timeToFocus)}>time to focus</StyledTimerButton>
+      <StyledTimerButton onClick={() => setTimerToFocus(takeAShortBreak)}>take a short break</StyledTimerButton>
+      <StyledTimerButton onClick={() => setTimerToFocus(takeALongBreak)}>take a long break</StyledTimerButton>
+      </DefaultTimersContainer>
+      <div>
 
-      <button onClick={() => {
+
+      <h1>{timer}</h1>
+      </div>
+
+      <Button onClick={() => {
         startTimer()
         setIsActive(true)
       }} disabled={isActive || timer===0 }>
         start
-      </button>
-      <button onClick={() => setTimerToFocus(0)}>
+      </Button>
+      <Button onClick={() => setTimerToFocus(0)}>
         reset
-      </button>
-</div>
+      </Button>
+</TimerConteiner>
+        </>
   )
 }
 
